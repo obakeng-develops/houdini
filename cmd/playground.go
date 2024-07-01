@@ -6,7 +6,7 @@ package cmd
 
 import (
 	"fmt"
-
+	"os"
 	"github.com/spf13/cobra"
 )
 
@@ -37,5 +37,19 @@ func init() {
 }
 
 func (options *playgroundOptions) run() {
-	fmt.Println(options.path)
+	dir, err := os.Lstat(options.path)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	mode := dir.Mode()
+
+	if mode.IsDir() {
+		fmt.Println("It is a directory")
+	} else if mode.IsRegular() {
+		fmt.Println("It is a regular file.")
+	} else {
+		fmt.Println("It is something else")
+	}
 }
