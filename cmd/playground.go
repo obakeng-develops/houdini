@@ -10,18 +10,32 @@ import (
 	"github.com/spf13/cobra"
 )
 
+type playgroundOptions struct {
+	path string
+}
+
 // playgroundCmd represents the playground command
-var playgroundCmd = &cobra.Command{
-	Use:   "playground",
-	Short: "Playground is a test command to try out cobra",
-	Long: `
-	houdini playground --path=.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("playground called")
+var (
+
+	playgroundCmdOptions = &playgroundOptions{}
+
+	playgroundCmd = &cobra.Command{
+		Use:   "playground",
+		Short: "Playground is a test command to try out cobra",
+		Long: `
+		houdini playground --path=.`,
+		Run: func(cmd *cobra.Command, args []string) {
+			playgroundCmdOptions.run()
 	},
 }
+)
 
 func init() {
 	rootCmd.AddCommand(playgroundCmd)
 
+	playgroundCmd.Flags().StringVarP(&playgroundCmdOptions.path, "path", "p", ".", "Path to the folder to read")
+}
+
+func (options *playgroundOptions) run() {
+	fmt.Println(options.path)
 }
