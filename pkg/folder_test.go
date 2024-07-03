@@ -38,3 +38,16 @@ func TestCheckFolder(t *testing.T) {
 		}
 	})
 }
+
+func TestFindDominantLanguage(t *testing.T) {
+	t.Run("Folder returns Go", func(t *testing.T) {
+		dominantLanguage, _ := findDominantLanguage(".")
+
+		got := dominantLanguage
+		want := "Go"
+
+		if got != want {
+			t.Errorf("got %s, want %s", got, want)
+		}
+	})
+}
