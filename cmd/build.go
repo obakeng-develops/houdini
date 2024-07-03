@@ -1,13 +1,20 @@
 /*
-Copyright © 2024 NAME HERE <EMAIL ADDRESS>
+Copyright © 2024 Obakeng Mosadi <mosadiobakeng7@gmail.com>
 */
 package cmd
 
 import (
-	"fmt"
+	"log/slog"
 
 	"github.com/spf13/cobra"
 )
+
+type buildOptions struct {
+	path string
+	tag  string
+}
+
+var buildCmdOptions = &buildOptions{}
 
 // buildCmd represents the build command
 var buildCmd = &cobra.Command{
@@ -20,20 +27,32 @@ var buildCmd = &cobra.Command{
 	# This command builds the file path/repo given a tag by the user as well as provision containers
 	houdini build --path=path/to/app -t my-app`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("build called")
+		buildCmdOptions.validate()
+		buildCmdOptions.run()
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(buildCmd)
 
-	// Here you will define your flags and configuration settings.
+	buildCmd.Flags().StringVarP(&buildCmdOptions.path, "path", "p", "", "Provide a directory path to build an image from")
+	buildCmd.Flags().StringVarP(&buildCmdOptions.tag, "tag", "t", "", "Provide a tag for your image")
+}
 
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// buildCmd.PersistentFlags().String("foo", "", "A help for foo")
+// validate the command options
+func (b *buildOptions) validate() error {
+	if b.path == "" {
+		slog.Error("You need to provide a directory path")
+	}
 
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// buildCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	if b.tag == "" {
+		slog.Error("You need to provide an image tag")
+	}
+
+	return nil
+}
+
+func (b *buildOptions) run() error {
+
+	return nil
 }
