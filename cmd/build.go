@@ -9,6 +9,13 @@ import (
 	"github.com/spf13/cobra"
 )
 
+type buildOptions struct {
+	path string
+	tag  string
+}
+
+var buildCmdOptions = &buildOptions{}
+
 // buildCmd represents the build command
 var buildCmd = &cobra.Command{
 	Use:   "build",
@@ -20,20 +27,16 @@ var buildCmd = &cobra.Command{
 	# This command builds the file path/repo given a tag by the user as well as provision containers
 	houdini build --path=path/to/app -t my-app`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("build called")
+		buildCmdOptions.run()
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(buildCmd)
 
-	// Here you will define your flags and configuration settings.
+	buildCmd.Flags().StringVarP(&buildCmdOptions.path, "path", "p", "", "Provide a directory path to build an image from")
+}
 
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// buildCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// buildCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+func (b *buildOptions) run() {
+	fmt.Println("Say hello")
 }
