@@ -4,8 +4,10 @@ Copyright © 2024 Obakeng Mosadi <mosadiobakeng7@gmail.com>
 package cmd
 
 import (
+	"fmt"
 	"log/slog"
 
+	"github.com/obakeng-develops/houdini/pkg"
 	"github.com/spf13/cobra"
 )
 
@@ -53,6 +55,14 @@ func (b *buildOptions) validate() error {
 }
 
 func (b *buildOptions) run() error {
+
+	findDominantLanguage, err := pkg.DirectoryWalkthrough(b.path)
+	if err != nil {
+		slog.Error("could not find the directory", "err", err)
+	}
+
+	// Check output
+	fmt.Println(findDominantLanguage)
 
 	return nil
 }
