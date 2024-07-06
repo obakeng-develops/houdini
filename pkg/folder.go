@@ -52,7 +52,6 @@ func DirectoryWalkthrough(path string) (string, error) {
 		if err != nil {
 			slog.Error("An error occurred while walking through the directory", "err", err)
 		}
-
 		return determineDominantLanguage(languageList), nil
 	}
 
@@ -67,9 +66,11 @@ func determineDominantLanguage(languageList map[string]int) string {
 	// [Go: 2, Ruby: 1, Txt: 1]
 	// Should return Go
 	for key, value := range languageList {
-		if value > maxValue {
-			maxKey = key
-			maxValue = value
+		if key != "" {
+			if value > maxValue {
+				maxKey = key
+				maxValue = value
+			}
 		}
 	}
 
