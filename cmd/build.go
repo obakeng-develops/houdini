@@ -56,13 +56,12 @@ func (b *buildOptions) validate() error {
 
 func (b *buildOptions) run() error {
 
-	findDominantLanguage, err := pkg.DirectoryWalkthrough(b.path)
+	getDominantLanguage, err := pkg.DirectoryWalkthrough(b.path)
 	if err != nil {
-		slog.Error("could not find the directory", "err", err)
+		slog.Error("An error occurred", "err", err)
 	}
 
-	// Check output
-	fmt.Println(findDominantLanguage)
+	fmt.Println(getDominantLanguage)
 
 	return nil
 }
