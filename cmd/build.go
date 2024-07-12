@@ -4,7 +4,6 @@ Copyright © 2024 Obakeng Mosadi <mosadiobakeng7@gmail.com>
 package cmd
 
 import (
-	"fmt"
 	"log/slog"
 
 	"github.com/obakeng-develops/houdini/pkg"
@@ -56,12 +55,14 @@ func (b *buildOptions) validate() error {
 
 func (b *buildOptions) run() error {
 
-	getDominantLanguage, err := pkg.DirectoryWalkthrough(b.path)
+	_, err := pkg.DirectoryWalkthrough(b.path)
 	if err != nil {
 		slog.Error("An error occurred", "err", err)
 	}
 
-	fmt.Println(getDominantLanguage)
+	if err := pkg.DockerExample(); err != nil {
+		slog.Error("An error occurred", "err", err)
+	}
 
 	return nil
 }
