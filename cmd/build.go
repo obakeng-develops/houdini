@@ -55,12 +55,18 @@ func (b *buildOptions) validate() error {
 
 func (b *buildOptions) run() error {
 
-	_, err := pkg.DirectoryWalkthrough(b.path)
+	buildLanguage, err := pkg.DirectoryWalkthrough(b.path)
 	if err != nil {
 		slog.Error("An error occurred", "err", err)
 	}
 
-	if err := pkg.DockerExample(); err != nil {
+	buildImage := pkg.BuildOptions{
+		Tag:      b.tag,
+		Language: buildLanguage,
+		Path:     b.path,
+	}
+
+	if err := buildImage.GenerateDockerImage(); err != nil {
 		slog.Error("An error occurred", "err", err)
 	}
 
