@@ -23,7 +23,8 @@ func (b *BuildOptions) GenerateDockerImage() error {
 
 	switch {
 	case b.Language == "Go":
-		BuildGoImage(f)
+		newGoBuild := GoBuilder{}
+		newGoBuild.buildImage(f)
 	}
 
 	return nil
