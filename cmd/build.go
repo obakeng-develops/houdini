@@ -21,12 +21,11 @@ var buildCmdOptions = &buildOptions{}
 var buildCmd = &cobra.Command{
 	Use:   "build",
 	Short: "Build will read the given file path and build an image",
-	Long: `
-	# This command builds the image based on the given file path
-	houdini build -i --path=path/to/app -t my-app
+	Long: `# This command builds the image based on the given file path
+houdini build -i --path=path/to/app -t my-app
 	
-	# This command builds the file path/repo given a tag by the user as well as provision containers
-	houdini build --path=path/to/app -t my-app`,
+# This command builds the file path/repo given a tag by the user as well as provision containers
+houdini build --path=path/to/app -t my-app`,
 	Run: func(cmd *cobra.Command, args []string) {
 		buildCmdOptions.validate()
 		buildCmdOptions.run()
@@ -54,7 +53,6 @@ func (b *buildOptions) validate() error {
 }
 
 func (b *buildOptions) run() error {
-
 	buildLanguage, err := pkg.DirectoryWalkthrough(b.path)
 	if err != nil {
 		slog.Error("An error occurred", "err", err)
