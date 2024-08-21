@@ -5,6 +5,10 @@ import (
 	"os"
 )
 
+type ImageBuilder interface {
+	buildImage(f *os.File)
+}
+
 type BuildOptions struct {
 	Tag      string
 	Language string
