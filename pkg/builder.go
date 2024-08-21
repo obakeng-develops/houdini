@@ -5,10 +5,6 @@ import (
 	"os"
 )
 
-type ImageBuilder interface {
-	buildImage(f *os.File)
-}
-
 type BuildOptions struct {
 	Tag      string
 	Language string
@@ -23,7 +19,7 @@ func (b *BuildOptions) GenerateDockerImage() error {
 
 	switch {
 	case b.Language == "Go":
-		b.buildImage(f)
+		BuildGoImage(f)
 	}
 
 	return nil
