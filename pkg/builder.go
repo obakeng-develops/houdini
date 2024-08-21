@@ -25,6 +25,9 @@ func (b *BuildOptions) GenerateDockerImage() error {
 	case b.Language == "Go":
 		newGoBuild := GoBuilder{}
 		newGoBuild.buildImage(f)
+	case b.Language == "Ruby":
+		newRubyBuild := RubyBuilder{}
+		newRubyBuild.buildImage(f)
 	}
 
 	return nil
