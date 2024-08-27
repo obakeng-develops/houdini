@@ -9,14 +9,16 @@ type GoBuilder struct {
 }
 
 func (g *GoBuilder) buildImage(f *os.File) {
-	buildGo := `FROM golang:1.19
+	buildGo := `# syntax=docker/dockerfile:1
+	
+FROM golang:1.19
 
 WORKDIR /app
 
 COPY go.mod go.sum ./
 RUN go mod download
 
-COPY *.go ./
+COPY * ./
 `
 
 	if _, err := f.Write([]byte(buildGo)); err != nil {
