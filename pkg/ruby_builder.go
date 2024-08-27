@@ -9,11 +9,11 @@ type RubyBuilder struct {
 }
 
 func (g *RubyBuilder) buildImage(f *os.File) {
-	buildRuby := `FROM ruby:latest
-RUN mkdir /usr/src/app
-ADD . /usr/src/app/
+	buildRuby := `# syntax=docker/dockerfile:1
+	
+FROM ruby:latest
 WORKDIR /usr/src/app/
-CMD ["/usr/src/app/main.rb"]
+COPY . ./usr/src/app
 `
 
 	if _, err := f.Write([]byte(buildRuby)); err != nil {
