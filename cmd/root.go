@@ -12,11 +12,8 @@ import (
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "houdini",
-	Short: "Tool that reads your repo and auto-provisions containers",
-	Long:  `Houdini is a CLI tool that auto-provisions containers by reading your repo.`,
-	// Uncomment the following line if your bare application
-	// has an action associated with it:
-	// Run: func(cmd *cobra.Command, args []string) { },
+	Short: "Tool that reads your folder and auto-provisions containers",
+	Long:  `Houdini is a CLI tool that auto-provisions containers by reading a code folder.`,
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.

@@ -22,7 +22,7 @@ func checkIsFolder(path string) (bool, error) {
 	return false, nil
 }
 
-func directoryWalkthrough(path string) (string, error) {
+func DirectoryWalkthrough(path string) (string, error) {
 	validFolder, err := checkIsFolder(path)
 	if err != nil {
 		return "", err
@@ -50,9 +50,8 @@ func directoryWalkthrough(path string) (string, error) {
 			return err
 		})
 		if err != nil {
-			slog.Error("Could not walk through directory", "err", err)
+			slog.Error("An error occurred while walking through the directory", "err", err)
 		}
-
 		return determineDominantLanguage(languageList), nil
 	}
 
@@ -67,9 +66,11 @@ func determineDominantLanguage(languageList map[string]int) string {
 	// [Go: 2, Ruby: 1, Txt: 1]
 	// Should return Go
 	for key, value := range languageList {
-		if value > maxValue {
-			maxKey = key
-			maxValue = value
+		if key != "" {
+			if value > maxValue {
+				maxKey = key
+				maxValue = value
+			}
 		}
 	}
 
